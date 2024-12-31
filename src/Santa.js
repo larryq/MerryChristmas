@@ -23,11 +23,11 @@ import { AccumulativeShadows, RandomizedLight, OrbitControls, Environment, useGL
             }
       }, [isWalking])
     return (
-      <group ref={group} {...props} dispose={null}>
+      <group ref={group} {...props} dispose={null} >
         <group name="Scene">
           <group name="rig" rotation={[Math.PI / 2, 0, 0]}>
             <skinnedMesh
-              onClick={ (event) => {setWalking(!isWalking)} }
+              onClick={ (event) => {setWalking(!isWalking); event.stopPropagation()} }
               name="model"
               geometry={nodes.model.geometry}
               material={materials['mat_5e0128c0-8cf7-48ce-bc08-c1fc17951ada']}

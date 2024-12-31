@@ -1,10 +1,22 @@
 import React, { useRef } from 'react'
 import { useGLTF } from '@react-three/drei'
+import gsap from 'gsap'
+import { useGSAP } from '@gsap/react';
+
 
 export default function StackOfPresents(props) {
   const { nodes, materials } = useGLTF('/present collection.glb')
+  const groupo = useRef();
+  const { contextSafe } = useGSAP({ scope: groupo }); 
+    const tl = gsap.timeline();
+    const onClick = contextSafe((currentElement) => {
+
+   tl.to(currentElement.object.position, { duration: 0.5, y: currentElement.object.position.y + Math.PI * 2 /10 })
+   .to(currentElement.object.position, { duration: 0.5, y: 0/*currentElement.object.position.y - Math.PI * 2 / 10*/})
+   ; currentElement.stopPropagation()
+});
   return (
-    <group {...props} dispose={null}>
+    <group {...props} dispose={null} ref={groupo} onClick={onClick}>
       <mesh
         castShadow
         receiveShadow
